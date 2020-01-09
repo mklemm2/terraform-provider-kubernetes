@@ -3,8 +3,8 @@ package kubernetes
 import (
 	"fmt"
 
-	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/hashicorp/terraform/helper/validation"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/validation"
 	pathValidation "k8s.io/apimachinery/pkg/api/validation/path"
 )
 
@@ -44,17 +44,20 @@ func rbacRoleRefSchema() map[string]*schema.Schema {
 			Type:         schema.TypeString,
 			Description:  "The API group of the user. The only value possible at the moment is `rbac.authorization.k8s.io`.",
 			Required:     true,
+			ForceNew:     true,
 			ValidateFunc: validation.StringInSlice([]string{"rbac.authorization.k8s.io"}, false),
 		},
 		"kind": {
 			Type:         schema.TypeString,
 			Description:  "The kind of resource.",
 			Required:     true,
+			ForceNew:     true,
 			ValidateFunc: validation.StringInSlice([]string{"Role", "ClusterRole"}, false),
 		},
 		"name": {
 			Type:        schema.TypeString,
 			Description: "The name of the User to bind to.",
+			ForceNew:    true,
 			Required:    true,
 		},
 	}
